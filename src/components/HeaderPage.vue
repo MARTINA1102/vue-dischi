@@ -1,10 +1,18 @@
 <template>
-  <div class="header_nav"><img src="https://grafica-facile.com/wp-content/uploads/2022/01/spotify-logo.png" alt="logo"></div>
+   <div class="header_nav">
+    <img src="https://grafica-facile.com/wp-content/uploads/2022/01/spotify-logo.png" alt="logo">
+    <SelectBar/>
+  </div>
 </template>
 
 <script>
+import SelectBar from './SelectBar.vue';
+
 export default {
   name: 'HeaderPage',
+  components: {
+    SelectBar,
+  },
 };
 </script>
 
@@ -16,5 +24,8 @@ export default {
   .header_nav{
     background-color: rgb(39, 59, 79);
     height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 </style>

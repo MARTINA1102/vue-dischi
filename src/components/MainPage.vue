@@ -9,6 +9,7 @@
           :title="character.title"
           :author="character.author"
           :year="character.year"
+          :genere="character.genre"
         />
       </ul>
       <div v-else>..LOADING..</div>
