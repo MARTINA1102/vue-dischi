@@ -1,7 +1,7 @@
 <template>
   <div>
-    <HeaderPage />
-    <MainPage />
+    <HeaderPage :genre-list="genresList" @changedGenre= "genreChanged"/>
+    <MainPage @genresReady="getGenresList" :genre-filter="genreFilter"/>
     <FooterPage />
   </div>
 </template>
@@ -17,7 +17,20 @@ export default {
     MainPage,
     FooterPage,
   },
-
+  data() {
+    return {
+      genresList: [],
+      genreFilter: 'All',
+    };
+  },
+  methods: {
+    getGenresList(genresList) {
+      this.genresList = genresList;
+    },
+    genreChange(genreFilter) {
+      this.genreFilter = genreFilter;
+    },
+  },
 };
 </script>
 

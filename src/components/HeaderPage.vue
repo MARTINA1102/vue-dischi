@@ -1,17 +1,32 @@
 <template>
    <div class="header_nav">
     <img src="https://grafica-facile.com/wp-content/uploads/2022/01/spotify-logo.png" alt="logo">
-    <SelectBar/>
+    <label for="select-genres">
+      <select name="genre" id="select-genres" @change="genreChange" v-model="genreFilter">
+        <option value="All"> All Genres</option>
+        <option v-for="genre in genreList" :key="genre" value="genre">
+          {{genre}}
+        </option>
+      </select>
+    </label>
   </div>
 </template>
 
 <script>
-import SelectBar from './SelectBar.vue';
-
 export default {
   name: 'HeaderPage',
-  components: {
-    SelectBar,
+  props: {
+    genreList: Array,
+  },
+  data() {
+    return {
+      genreFilter: 'All',
+    };
+  },
+  methods: {
+    genreChange() {
+      this.$emit('changedGenre', this.genreFilter);
+    },
   },
 };
 </script>

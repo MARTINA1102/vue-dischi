@@ -3,7 +3,7 @@
     <div class="container">
       <ul v-if='arrCharacters'>
         <CardCharacter
-          v-for = "character in arrCharacters"
+          v-for = "character in arrDiscFiltered"
           :key="character.title"
           :imgUrl="character.poster"
           :title="character.title"
@@ -23,11 +23,41 @@ import CardCharacter from './CardCharacter.vue';
 
 export default {
   name: 'MainPage',
+  components: {
+    CardCharacter,
+  },
   data() {
     return {
       arrCharacters: null,
       urlApi: 'https://flynn.boolean.careers/exercises/api/array/music',
     };
+  },
+  props: {
+    genreFilter: String,
+  },
+  computed: {
+    arrGenres() {
+      const arrGenres = [];
+      if (this.arrCharacters) {
+        this.arrCharacters.forEach((objDisc) => {
+          if (!arrGenres.includes(objDisc.genre)) {
+            arrGenres.push(objDisc.genre);
+          }
+        });
+      }
+      return arrGenres;
+    },
+    arrDiscFiltered() {
+      if (this.genreFilter === 'All') {
+        return this.arrCharacters;
+      }
+      return this.arrCharacters.filter((objDisc) => objDisc.genre === this.genreFilter);
+    },
+  },
+  watch: {
+    arrGenres(newValue) {
+      this.$emit('genresReady', newValue);
+    },
   },
   created() {
     axios.get(this.urlApi)
@@ -35,9 +65,6 @@ export default {
         console.log(axiosResponse.data);
         this.arrCharacters = axiosResponse.data.response;
       });
-  },
-  components: {
-    CardCharacter,
   },
 };
 </script>
