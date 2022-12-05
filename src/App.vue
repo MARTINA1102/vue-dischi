@@ -1,6 +1,7 @@
 <template>
   <div>
-    <HeaderPage :genre-list="genresList" @changedGenre= "genreChanged"/>
+    <HeaderPage :genres-list="genresList"
+      @changedGenre="genreChange"/>
     <MainPage @genresReady="getGenresList" :genre-filter="genreFilter"/>
     <FooterPage />
   </div>
